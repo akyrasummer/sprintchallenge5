@@ -12,6 +12,36 @@ async function sprintChallenge5() { // Note the async keyword so you can use `aw
   let mentors = [] // fix this
   let learners = [] // fix this
 
+  const getMentors = async () => {
+    try {
+      const response = await axios.get('http://localhost:3003/api/mentors');
+      mentors = response.data;
+    } catch (error) {
+      console.error('Erorr fetching mentors:', error);
+    }
+  }
+
+  const getLearners = async () => {
+    try {
+      const response = await axios.get('http://localhost:3003/api/learners');
+      learners = response.data;
+    } catch (error) {
+      console.error('Erorr fetching learners:', error);
+    }
+  };
+
+  const fetchData = async () => {
+    await getMentors();
+    await getLearners();
+
+    // console.log('Mentors:', mentors) this checks that the data is correctly pulled
+    // console.log('Learners:', learners) this also checks the data is correctly pulled
+  };
+
+  fetchData();
+
+
+
   // 👆 ==================== TASK 1 END ====================== 👆
 
   // 👇 ==================== TASK 2 START ==================== 👇
@@ -28,6 +58,24 @@ async function sprintChallenge5() { // Note the async keyword so you can use `aw
   //     "Grace Hopper"
   //   ]`
   // }
+
+  const mentorMap = mentors.reduce((map, mentor) => {
+    map[mentor.id] = mentor.fullName;
+    return map;
+  }, {});
+
+  learners = learners.map(learner => {
+    const mentorNames = learner.mentors.map(mentorId => mentorMap[mentorId]);
+    return {
+      ...learner,
+      mentors: mentorNames
+    };
+  });
+
+  console.log('Updated Learners:', learners)
+
+ 
+
 
   // 👆 ==================== TASK 2 END ====================== 👆
 
