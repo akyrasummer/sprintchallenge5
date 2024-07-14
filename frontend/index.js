@@ -110,19 +110,10 @@ async function sprintChallenge5() { // Note the async keyword so you can use `aw
     // ❗ Fill each <li> with a mentor name, and append it to the <ul> mentorList.
     // ❗ Inspect the mock site closely to understand what the initial texts and classes look like!
 
-    const updateInfoText = () => {
-      const selectedCards = document.querySelectorAll('.learner-card.selected');
-      if (selectedCards.length === 0) {
-        info.textContent = 'No learner is selected';
-      }
-    };
-
-    updateInfoText();
-
    
 
     const card = document.createElement('div');
-    card.classList.add('learner-card');
+    card.classList.add('card');
 
     const heading = document.createElement('h3');
     heading.classList.add('learner-name');
