@@ -9,36 +9,47 @@ async function sprintChallenge5() { // Note the async keyword so you can use `aw
   // ❗ Use the variables `mentors` and `learners` to store the data.
   // ❗ Use the await keyword when using axios.
 
-  let mentors = [] // fix this
-  let learners = [] // fix this
+  let mentors = await axios.get('http://localhost:3003/api/mentors')
+  .then(response => response.data)
+  .catch(error => {
+    console.error('Error fetching mentors:', error);
+    return [];
+  });
 
-  const getMentors = async () => {
-    try {
-      const response = await axios.get('http://localhost:3003/api/mentors');
-      mentors = response.data;
-    } catch (error) {
-      console.error('Erorr fetching mentors:', error);
-    }
-  }
+  let learners = await axios.get('http://localhost:3003/api/learners')
+  .then(response => response.data)
+  .catch(error => {
+    console.error('Error fetching learners:', error);
+    return [];
+  });
 
-  const getLearners = async () => {
-    try {
-      const response = await axios.get('http://localhost:3003/api/learners');
-      learners = response.data;
-    } catch (error) {
-      console.error('Erorr fetching learners:', error);
-    }
-  };
+  // const getMentors = async () => {
+  //   try {
+  //     const response = await axios.get('http://localhost:3003/api/mentors');
+  //     mentors = response.data;
+  //   } catch (error) {
+  //     console.error('Erorr fetching mentors:', error);
+  //   }
+  // }
 
-  const fetchData = async () => {
-    await getMentors();
-    await getLearners();
+  // const getLearners = async () => {
+  //   try {
+  //     const response = await axios.get('http://localhost:3003/api/learners');
+  //     learners = response.data;
+  //   } catch (error) {
+  //     console.error('Erorr fetching learners:', error);
+  //   }
+  // };
 
-    // console.log('Mentors:', mentors) this checks that the data is correctly pulled
-    // console.log('Learners:', learners) this also checks the data is correctly pulled
-  };
+  // const fetchData = async () => {
+  //   await getMentors();
+  //   await getLearners();
 
-  await fetchData();
+  //   // console.log('Mentors:', mentors) this checks that the data is correctly pulled
+  //   // console.log('Learners:', learners) this also checks the data is correctly pulled
+  // };
+
+  // await fetchData();
 
   
 
@@ -99,6 +110,17 @@ async function sprintChallenge5() { // Note the async keyword so you can use `aw
     // ❗ Fill each <li> with a mentor name, and append it to the <ul> mentorList.
     // ❗ Inspect the mock site closely to understand what the initial texts and classes look like!
 
+    const updateInfoText = () => {
+      const selectedCards = document.querySelectorAll('.learner-card.selected');
+      if (selectedCards.length === 0) {
+        info.textContent = 'No learner is selected';
+      }
+    };
+
+    updateInfoText();
+
+   
+
     const card = document.createElement('div');
     card.classList.add('learner-card');
 
@@ -129,9 +151,9 @@ async function sprintChallenge5() { // Note the async keyword so you can use `aw
     card.appendChild(mentorsHeading);
     card.appendChild(mentorsList);
 
-  
 
-fetchData();
+
+  
 
 
 
