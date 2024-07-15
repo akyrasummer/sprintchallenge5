@@ -73,7 +73,7 @@ async function sprintChallenge5() { // Note the async keyword so you can use `aw
   // }
 
   const mentorMap = mentors.reduce((map, mentor) => {
-    map[mentor.id] = mentor.fullName;
+    map[mentor.id] = `${mentor.firstName} ${mentor.lastName}`;
     return map;
   }, {});
 
@@ -123,12 +123,13 @@ async function sprintChallenge5() { // Note the async keyword so you can use `aw
     email.classList.add('learner-email');
     email.textContent = learner.email;
 
-    const mentorsHeading = document.createElement('h4')
-    mentorsHeading.classList.add('mentors-heading');
+    const mentorsHeading = document.createElement('h4');
+    mentorsHeading.classList.add('closed');
     mentorsHeading.textContent = 'Mentors';
 
-    const mentorsList = document.createElement('ul')
+    const mentorsList = document.createElement('ul');
     mentorsList.classList.add('mentors-list');
+    mentorsList.style.display = 'none';
 
     for (let mentorName of learner.mentors) {
       const mentorItem = document.createElement('li');
