@@ -144,7 +144,11 @@ async function sprintChallenge5() { // Note the async keyword so you can use `aw
     card.appendChild(mentorsList);
 
 
-
+card.addEventListener('click', () => {
+  const isOpen = mentorsHeading.classList.toggle('closed');
+  mentorsList.style.display = isOpen ? 'none' : 'block';
+  info.textContent = `Selected learner: ${learner.fullName}`
+})
   
 
 
